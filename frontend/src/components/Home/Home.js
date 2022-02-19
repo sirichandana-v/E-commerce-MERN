@@ -7,12 +7,7 @@ import { getProduct } from '../../Actions/productAction.js';
 import Loader from '../layouts/Loader/Loader.js';
 import { useAlert } from 'react-alert';
 
-const product={
-  name:"shirt",
-  price:"56556",
-  _id:"475454776567",
-  images:[{url:"https://images.unsplash.com/photo-1596783074918-c84cb06531ca?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80"}]
-};
+
 
 
 function Home() {
@@ -27,7 +22,7 @@ function Home() {
       return alert.error(error)
     }
     dispatch(getProduct())
-  },[dispatch, error])
+  },[dispatch, error, alert])
 
   return (
     <div className='home'>

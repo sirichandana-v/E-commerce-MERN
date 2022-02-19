@@ -45,7 +45,6 @@ exports.getProductDetails = catchAsyncErrors(async (req, res, next) => {
     return next(new ErrorHandler("product not found", 404));
   }
 
-  await product.remove();
   res.status(200).json({
     success: true,
     product,
@@ -77,7 +76,7 @@ exports.updateProduct = catchAsyncErrors(async (req, res, next) => {
 
 exports.deleteProduct = catchAsyncErrors(async function (req, res, next) {
   const product = await Product.findById(req.params.id);
-
+  console.log("deleting product*********************************************************************")
   if (!product) {
     return next(new ErrorHandler("product not found", 404));
   } else {
