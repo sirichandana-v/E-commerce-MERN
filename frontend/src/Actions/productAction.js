@@ -10,6 +10,8 @@ import {
   CLEAR_ERRORS,
 } from "../constants/productConstants";
 
+
+//get all products
 export const getProduct =
   (keyword = "", currentPage = 1, price = [0, 90000], category, ratings = 0) =>
   async (dispatch) => {
@@ -23,7 +25,7 @@ export const getProduct =
       }
       const {data}=await axios.get(link);
       console.log(data);
-
+      
       dispatch({
         type: ALL_PRODUCT_SUCCESS,
         payload: data,

@@ -1,26 +1,32 @@
 import React from "react";
 import "./ProductDetails.css";
 import {useSelector, useDispatch} from "react-redux";
-import { getProductDetails } from "../../Actions/productAction";
+import MetaData from '../layouts/MetaData.js';
+import { clearErrors, getProductDetails } from "../../Actions/productAction";
 import { useEffect } from "react";
 import {useParams} from "react-router-dom";
 import ReactStars from "react-rating-stars-component";
 import ReviewCard from "./ReviewCard";
 import Loader from "../layouts/Loader/Loader";
-
+import {useAlert} from "react-alert";
 
 
 
 const ProductDetails =()=> {
 
   const dispatch=useDispatch();
-  const {product,loading}=useSelector(state=>state.productDetails);
+  const {product,loading, error}=useSelector(state=>state.productDetails);
+  const alert = useAlert();
   
   const { id } = useParams();
 
   useEffect(()=>{
+    if(error){
+      alert.error(error);
+      dispatch(clearErrors());
+    }
     dispatch(getProductDetails(id))
-  },[dispatch, id])
+  },[dispatch, id, error, alert])
 
 
   const options={
@@ -39,6 +45,7 @@ const ProductDetails =()=> {
         <Loader />
       ) : (
         <>
+        <MetaData  title={`${product.name}--ecommerce`}/>
     <div className="productDetails">
       <div>
         {product.images &&
@@ -69,7 +76,7 @@ const ProductDetails =()=> {
         <div className=".productDetails__block3_1">
           <div className="productDetails__block3_1_1">
             <button >-</button>
-            <input readOnly type="number" />
+            <input readOnly type="number" value={product.stock}/>
             <button >+</button> 
           </div>
           <button className="productDetails__block3Button"

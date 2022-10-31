@@ -3,7 +3,7 @@ import ProductCard from "./ProductCard.js";
 import "./Home.css";
 import MetaData from '../layouts/MetaData.js';
 import {useSelector, useDispatch} from 'react-redux';
-import { getProduct } from '../../Actions/productAction.js';
+import { clearErrors, getProduct } from '../../Actions/productAction.js';
 import Loader from '../layouts/Loader/Loader.js';
 import { useAlert } from 'react-alert';
 
@@ -19,7 +19,8 @@ function Home() {
   useEffect(()=>{
     if(error)
     {
-      return alert.error(error)
+      alert.error(error);
+      dispatch(clearErrors())
     }
     dispatch(getProduct())
   },[dispatch, error, alert])
@@ -30,7 +31,7 @@ function Home() {
     (<Fragment>
       <MetaData  title="E-commerce"/>
         <img className="home_banner"  src="banner.jpg" alt="banner" />
-        <h2>Products</h2>
+        <h2>Featured products</h2>
 
         <div className="home__container">
             {products && products.map(product=>(<ProductCard key={product._id} product={product}/>))}

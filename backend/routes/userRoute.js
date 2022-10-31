@@ -3,6 +3,7 @@ const { registerUser, loginUser, logout, forgotPassword, resetPassword, getUserD
 const {isAuthenticatedUser, authorizeRoles}= require("../middleware/auth")
 const router=express.Router();
 
+console.log("reached route");
 router.route("/register").post(registerUser);
 router.route("/login").post(loginUser);
 router.route("/password/forgot").get(forgotPassword);
